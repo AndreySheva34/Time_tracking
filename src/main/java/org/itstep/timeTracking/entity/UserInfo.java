@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.itstep.timeTracking.command.UserInfoCommand;
 
+import java.util.Optional;
+
 @Data
 @Entity
 @Table(name = "user_info")

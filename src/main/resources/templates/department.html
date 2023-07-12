@@ -1,31 +1,41 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="header :: html_header"></head>
+<head th:replace="parts/header :: html_header"></head>
 <body>
-<nav th:insert="navbar :: navbar"></nav>
+<nav th:insert="parts/navbar :: navbar"></nav>
 <h1>Department</h1>
 <form method="post" >
   <div class="mb-3">
     <input type="text" name="title" class="form-control" placeholder="Title" aria-label="First name" required>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <select class="form-select" aria-label="Default select example" name = "subId">
+    <option value=>Main department</option>
+    <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
+
+    </option>
+  </select>
+  <button type="submit" class="btn btn-primary md-5" >Submit</button>
 </form>
 
 <table class="table table-striped">
   <thead>
   <tr>
     <th scope="col">id</th>
+    <th scope="col">sub_id</th>
     <th scope="col">Title</th>
     <th scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each="department: ${departments}">
-    <th scope="row" th:text="${department.id}"></th>
+    <td th:text="${department.id}"></td>
+    <td th:text="${department.subId}"></td>
     <td th:text="${department.title}"></td>
-    <td>Edit | Delete</td>
+    <td>Edit | <a th:href="@{department/{id}(id=${department.id})}">Delete</a></td>
   </tr>
   </tbody>
+
+
 </table>
 </body>
 </html>

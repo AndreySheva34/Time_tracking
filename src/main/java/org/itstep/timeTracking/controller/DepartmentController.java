@@ -7,8 +7,11 @@ import org.itstep.timeTracking.repository.DepartmentRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/department")
@@ -17,7 +20,6 @@ public class DepartmentController {
     private final DepartmentRepository repository;
 
     @GetMapping
-
     String index(Model model){
         model.addAttribute("departments",repository.findAll());
         return "department";
@@ -29,5 +31,14 @@ public class DepartmentController {
         repository.save(department);
         return "redirect:/department";
 
+    }
+
+    @GetMapping("/{id}")
+    String delete(@PathVariable Integer id){
+        Optional<Department> optionalDepartment = repository.findById(id);
+        optionalDepartment.ifPresent(depatrment -> {
+            repository.deleteById(id);
+        });
+        return "redirect:/department";
     }
 }

@@ -1,5 +1,5 @@
 package org.itstep.timeTracking.command;
 
-public record DepartmentCommand(String title) {
+public record DepartmentCommand(String title, Integer subId) {
 }
 

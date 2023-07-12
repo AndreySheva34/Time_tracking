@@ -26,11 +26,13 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<UserInfo> UserInfos = new ArrayList<>();
 
-    public Department(String title) {
+    public Department(String title, Integer subId) {
         this.title = title;
+        this.subId = subId;
     }
 
     public static Department fromDepartment(DepartmentCommand command){
-        return new Department(command.title());
+
+        return new Department(command.title(), command.subId());
     }
 }

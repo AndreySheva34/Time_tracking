@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="header :: html_header"></head>
+<head th:replace="parts/header :: html_header"></head>
 <body>
-<nav th:insert="navbar :: navbar"></nav>
+<nav th:insert="parts/navbar :: navbar"></nav>
 <h1>User</h1>
 
 <form method="post" >
@@ -12,6 +12,12 @@
     <div class="mb-3">
       <input type="text" name="lastName" class="form-control" placeholder="Last name" aria-label="Last name" required>
     </div>
+    <select class="form-select" aria-label="Default select example" name = "subId">
+        <option value=>Main department</option>
+        <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
+
+        </option>
+    </select>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

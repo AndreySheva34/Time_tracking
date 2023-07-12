@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="header :: html_header"></head>
+<head th:replace="parts/header :: html_header"></head>
 <body>
-<nav th:insert="navbar :: navbar"></nav>
+<nav th:insert="parts/navbar :: navbar"></nav>
 
     <h1 th:text="${title}"/>
 </body>
