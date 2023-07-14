@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head th:replace="parts/header :: html_header"></head>
+<head th:replace="~{parts/header :: html_header}"></head>
 <body>
-<nav th:insert="parts/navbar :: navbar"></nav>
-<h1>User</h1>
+<nav th:insert="~{parts/navbar :: navbar}"></nav>
+<h1>Emploee</h1>
 
 <form method="post" >
     <div class="mb-3">
@@ -15,9 +15,9 @@
     <select class="form-select" aria-label="Default select example" name = "subId">
         <option value=>Main department</option>
         <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
-
         </option>
     </select>
+    <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
@@ -31,10 +31,10 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="UserInfo: ${UserInfos}">
-    <th scope="row" th:text="${UserInfo.id}"></th>
-    <td th:text="${UserInfo.firstName}"></td>
-    <td th:text="${UserInfo.lastName}"></td>
+  <tr th:each="employee: ${employees}">
+    <th scope="row" th:text="${employee.id}"></th>
+    <td th:text="${employee.firstName}"></td>
+    <td th:text="${employee.lastName}"></td>
     <td>Edit | Delete</td>
   </tr>
   </tbody>

@@ -7,9 +7,20 @@ CREATE USER 'admin'@localhost IDENTIFIED BY 'admin';
 
 GRANT ALL ON time_tracker.* TO 'admin'@localhost;
 
+create table users(
+                      username varchar(50) not null primary key,
+                      password varchar(500) not null,
+                      enabled boolean not null
+);
 
+create table authorities (
+                             username varchar(50) not null,
+                             authority varchar(50) not null,
+                             constraint fk_authorities_users foreign key(username) references users(username)
+);
+create unique index ix_auth_username on authorities (username,authority);
 
-CREATE TABLE `user_info`(
+CREATE TABLE employee(
                        `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        `firstname` VARCHAR(255) NOT NULL,
                        `lastname` VARCHAR(255) NOT NULL,
@@ -72,18 +83,18 @@ CREATE TABLE `num_of_run`(
                              `num_of_run_id` INT NOT NULL
 );
 ALTER TABLE
-    `num_of_run` ADD CONSTRAINT `num_of_run_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user_info`(`id`);
+    `num_of_run` ADD CONSTRAINT `num_of_run_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES employee(`id`);
 ALTER TABLE
     `num_run_deteil` ADD CONSTRAINT `num_run_deteil_num_run_id_foreign` FOREIGN KEY(`num_run_id`) REFERENCES `num_run`(`id`);
 ALTER TABLE
-    `check_in_out` ADD CONSTRAINT `check_in_out_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user_info`(`id`);
+    `check_in_out` ADD CONSTRAINT `check_in_out_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES employee(`id`);
 ALTER TABLE
     `user_temp_shedule` ADD CONSTRAINT `user_temp_shedule_sedule_class_id_foreign` FOREIGN KEY(`sedule_class_id`) REFERENCES `schedule_class`(`id`);
 ALTER TABLE
-    `user_temp_shedule` ADD CONSTRAINT `user_temp_shedule_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES `user_info`(`id`);
+    `user_temp_shedule` ADD CONSTRAINT `user_temp_shedule_user_id_foreign` FOREIGN KEY(`user_id`) REFERENCES employee(`id`);
 ALTER TABLE
     `num_run_deteil` ADD CONSTRAINT `num_run_deteil_schclass_id_foreign` FOREIGN KEY(`schclass_id`) REFERENCES `schedule_class`(`id`);
 ALTER TABLE
-    `user_info` ADD CONSTRAINT `user_department_id_foreign` FOREIGN KEY(`department_id`) REFERENCES `departments`(`id`);
+    employee ADD CONSTRAINT `user_department_id_foreign` FOREIGN KEY(`department_id`) REFERENCES `departments`(`id`);
 ALTER TABLE
     `num_of_run` ADD CONSTRAINT `num_of_run_num_of_run_id_foreign` FOREIGN KEY(`num_of_run_id`) REFERENCES `num_run`(`id`);

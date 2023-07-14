@@ -24,7 +24,7 @@ public class Department {
     private String title;
 
     @OneToMany(mappedBy = "department")
-    private List<UserInfo> UserInfos = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
 
     public Department(String title, Integer subId) {
         this.title = title;

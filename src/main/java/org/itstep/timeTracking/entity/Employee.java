@@ -3,15 +3,13 @@ package org.itstep.timeTracking.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.itstep.timeTracking.command.UserInfoCommand;
-
-import java.util.Optional;
+import org.itstep.timeTracking.command.EmployeeCommand;
 
 @Data
 @Entity
-@Table(name = "user_info")
+@Table(name = "employee")
 @NoArgsConstructor
-public class UserInfo {
+public class Employee {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "firstname")
@@ -24,17 +22,17 @@ public class UserInfo {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
 
-    public UserInfo(String firstName, String lastName) {
+    public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public void setDepartment(Department department){
-        department.getUserInfos().add(this);
+        department.getEmployees().add(this);
         this.department = department;
     }
 
-    public static UserInfo fromUserInfo(UserInfoCommand command){
-        return new UserInfo(command.firstName(), command.lastName());
+    public static Employee fromEmployee(EmployeeCommand command){
+        return new Employee(command.firstName(), command.lastName());
     }
 }
