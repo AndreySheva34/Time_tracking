@@ -9,14 +9,14 @@ import org.itstep.timeTracking.repository.EmployeeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/emploee")
+@RequestMapping("/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
@@ -25,7 +25,7 @@ public class EmployeeController {
     String index(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
         model.addAttribute("departments", departmentRepository.findAll());
-        return "emploee";
+        return "employee";
     }
 
     @PostMapping
@@ -37,7 +37,16 @@ public class EmployeeController {
             employee.setDepartment(department);
             employeeRepository.save(employee);
         });
-        return "redirect:/emploee";
+        return "redirect:/employee";
 
+    }
+
+    @GetMapping("/{id}")
+    String delete(@PathVariable Integer id){
+        Optional<Employee> optionalEmployee= employeeRepository.findById(id);
+        optionalEmployee.ifPresent(employee -> {
+            employeeRepository.deleteById(id);
+        });
+        return "redirect:/employee";
     }
 }

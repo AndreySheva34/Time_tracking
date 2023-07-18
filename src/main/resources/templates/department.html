@@ -30,7 +30,7 @@
   <tbody>
   <tr th:each="department: ${departments}">
     <td th:text="${department.id}"></td>
-    <td th:text="${department.parentDepartment}"></td>
+    <td th:text="${department.parentId}"></td>
     <td th:text="${department.title}"></td>
     <td>Edit | <a th:href="@{department/{id}(id=${department.id})}">Delete</a></td>
   </tr>

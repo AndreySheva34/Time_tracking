@@ -2,7 +2,9 @@ package org.itstep.timeTracking.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.itstep.timeTracking.command.DepartmentCommand;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
 @Data
 @Table(name = "departments")
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "employees")
+@ToString(exclude = "employees")
 public class Department {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

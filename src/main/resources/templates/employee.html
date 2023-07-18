@@ -36,8 +36,8 @@
     <th scope="row" th:text="${employee.id}"></th>
     <td th:text="${employee.firstName}"></td>
     <td th:text="${employee.lastName}"></td>
-      <td th:text="Depart"></td>
-    <td>Edit | Delete</td>
+      <td th:text="${employee.department}"></td>
+    <td>Edit |<a th:href="@{employee/{id}(id=${employee.id})}">Delete</a></td>
   </tr>
   </tbody>
 </table>
