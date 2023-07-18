@@ -30,12 +30,13 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<Employee> employees = new ArrayList<>();
 
-    public Department(String title) {
+    public Department(String title, Integer parentId) {
         this.title = title;
+        this.parentId = parentId;
     }
 
     public static Department fromDepartment(DepartmentCommand command){
 
-        return new Department(command.title());
+        return new Department(command.title(), command.parentId());
     }
 }

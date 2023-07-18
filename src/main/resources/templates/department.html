@@ -8,7 +8,7 @@
   <div class="mb-3">
     <input type="text" name="title" class="form-control" placeholder="Title" aria-label="First name" required>
   </div>
-  <select class="form-select" aria-label="Default select example" name = "subId">
+  <select class="form-select" aria-label="Default select example" name = "parentId">
     <option value=>Main department</option>
     <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
 

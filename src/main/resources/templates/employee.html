@@ -36,7 +36,7 @@
     <th scope="row" th:text="${employee.id}"></th>
     <td th:text="${employee.firstName}"></td>
     <td th:text="${employee.lastName}"></td>
-      <td th:text="${employee.department}"></td>
+      <td th:text="${employee.department.title}"></td>
     <td>Edit |<a th:href="@{employee/{id}(id=${employee.id})}">Delete</a></td>
   </tr>
   </tbody>
