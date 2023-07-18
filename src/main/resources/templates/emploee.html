@@ -12,8 +12,8 @@
     <div class="mb-3">
       <input type="text" name="lastName" class="form-control" placeholder="Last name" aria-label="Last name" required>
     </div>
-    <select class="form-select" aria-label="Default select example" name = "subId">
-        <option value=>Main department</option>
+    <select class="form-select" aria-label="Default select example" name ="departmentId">
+<!--        <option value=>Main department</option>-->
         <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
         </option>
     </select>
@@ -27,6 +27,7 @@
     <th scope="col">id</th>
     <th scope="col">First name</th>
     <th scope="col">Last name</th>
+      <th scope="col">Department</th>
     <th scope="col">Action</th>
   </tr>
   </thead>
@@ -35,6 +36,7 @@
     <th scope="row" th:text="${employee.id}"></th>
     <td th:text="${employee.firstName}"></td>
     <td th:text="${employee.lastName}"></td>
+      <td th:text="Depart"></td>
     <td>Edit | Delete</td>
   </tr>
   </tbody>

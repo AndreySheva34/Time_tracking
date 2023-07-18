@@ -17,8 +17,8 @@ public class Department {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "sub_id")
-    private Integer subId;
+    @Column(name = "parent_id")
+    private Integer parentId;
 
     @Column(unique = true)
     private String title;
@@ -26,13 +26,12 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<Employee> employees = new ArrayList<>();
 
-    public Department(String title, Integer subId) {
+    public Department(String title) {
         this.title = title;
-        this.subId = subId;
     }
 
     public static Department fromDepartment(DepartmentCommand command){
 
-        return new Department(command.title(), command.subId());
+        return new Department(command.title());
     }
 }

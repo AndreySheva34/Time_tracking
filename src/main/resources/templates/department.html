@@ -22,7 +22,7 @@
   <thead>
   <tr>
     <th scope="col">id</th>
-    <th scope="col">sub_id</th>
+    <th scope="col">Parent</th>
     <th scope="col">Title</th>
     <th scope="col">Action</th>
   </tr>
@@ -30,7 +30,7 @@
   <tbody>
   <tr th:each="department: ${departments}">
     <td th:text="${department.id}"></td>
-    <td th:text="${department.subId}"></td>
+    <td th:text="${department.parentDepartment}"></td>
     <td th:text="${department.title}"></td>
     <td>Edit | <a th:href="@{department/{id}(id=${department.id})}">Delete</a></td>
   </tr>

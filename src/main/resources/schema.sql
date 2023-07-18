@@ -62,7 +62,7 @@ CREATE TABLE `user_temp_shedule`(
 );
 CREATE TABLE `departments`(
                                `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                               `sub_id` INT NULL,
+                               parent_id INT NULL,
                                `title` VARCHAR(255) NOT NULL
 );
 ALTER TABLE
