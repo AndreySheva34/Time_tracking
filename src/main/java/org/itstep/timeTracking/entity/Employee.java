@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.itstep.timeTracking.command.EmployeeCommand;
+import org.springframework.security.core.userdetails.User;
 
 @Data
 @Entity
@@ -21,6 +22,9 @@ public class Employee {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
+
+    //@ManyToMany(mappedBy = "user")
+    //private User user;
 
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;

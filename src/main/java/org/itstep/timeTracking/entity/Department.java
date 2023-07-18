@@ -21,8 +21,8 @@ public class Department {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "parent_id")
-    private Integer parentId;
+//    @Column(name = "parent_id")
+//    private Integer parentId;
 
     @Column(unique = true)
     private String title;
@@ -30,7 +30,11 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private List<Employee> employees = new ArrayList<>();
 
-    public Department(String title, Integer parentId) {
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "parentId")
+    private Department parentId;
+
+    public Department(String title, Department parentId) {
         this.title = title;
         this.parentId = parentId;
     }
@@ -38,5 +42,9 @@ public class Department {
     public static Department fromDepartment(DepartmentCommand command){
 
         return new Department(command.title(), command.parentId());
+    }
+
+    public void setDepartmentParent(Department parentDepartment) {
+        this.parentId = parentDepartment;
     }
 }
