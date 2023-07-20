@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.itstep.timeTracking.command.EmployeeCommand;
-import org.springframework.security.core.userdetails.User;
+import org.itstep.timeTracking.security.entity.CustomUser;
 
 @Data
 @Entity
@@ -20,11 +20,14 @@ public class Employee {
     @Column(name = "card_number")
     private Integer cardNumber;
 
+    @OneToOne
+    private CustomUser user;
+
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
 
-    //@ManyToMany(mappedBy = "user")
-    //private User user;
+//    @ManyToMany(mappedBy = "user")
+//    private User user;
 
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;

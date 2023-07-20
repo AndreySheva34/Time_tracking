@@ -8,26 +8,48 @@ CREATE USER 'admin'@localhost IDENTIFIED BY 'admin';
 GRANT ALL ON time_tracker.* TO 'admin'@localhost;
 
 create table users(
-                      username varchar(50) not null primary key,
-                      password varchar(500) not null,
-                      enabled boolean not null
+            id int not null AUTO_INCREMENT primary key ,
+            username varchar(50) not null unique ,
+            password varchar(500) not null,
+            enabled boolean not null default true,
+            account_non_expired boolean not null default true,
+            account_non_locked boolean not null default true,
+            credentials_non_expired boolean not null default true
 );
 
-create table authorities (
-                             username varchar(50) not null,
-                             authority varchar(50) not null,
-                             constraint fk_authorities_users foreign key(username) references users(username)
+create table roles (
+            id int not null AUTO_INCREMENT primary key ,
+            name varchar(50) not null,
+            unique (id,name)
 );
-create unique index ix_auth_username on authorities (username,authority);
+
+create table users_roles (
+            users_id int not null,
+            roles_id int not null,
+            constraint foreign key(users_id) references users(id),
+            constraint foreign key(roles_id) references roles(id),
+            primary key (users_id,roles_id)
+);
 
 CREATE TABLE employee(
-                       `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                       `firstname` VARCHAR(255) NOT NULL,
-                       `lastname` VARCHAR(255) NOT NULL,
-                       `card_number` INT NULL,
-                       `department_id` INT NULL,
-                        unique (firstname,lastname)
+            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            firstname VARCHAR(255) NOT NULL,
+            lastname VARCHAR(255) NOT NULL,
+            card_number INT NULL,
+            department_id INT NULL,
+            user_id INT,
+            constraint fk_employee_users foreign key(user_id) references users(id),
+            unique (firstname,lastname)
 );
+
+CREATE TABLE departments(
+            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            parent_id INT,
+            title VARCHAR(255) NOT NULL UNIQUE,
+            constraint fk_recursive foreign key (parent_id) references departments (id)
+);
+
+
 CREATE TABLE `num_run_deteil`(
                                  `num_run_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                  `start_time` TIME NOT NULL,
@@ -60,13 +82,7 @@ CREATE TABLE `user_temp_shedule`(
                                     `sedule_class_id` INT NULL,
                                     `type` INT NOT NULL
 );
-CREATE TABLE `departments`(
-                               `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                               parent_id INT NULL,
-                               `title` VARCHAR(255) NOT NULL
-);
-ALTER TABLE
-    `departments` ADD UNIQUE `departments_title_unique`(`title`);
+
 CREATE TABLE `schedule_class`(
                                  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                                  `title` BIGINT NOT NULL,

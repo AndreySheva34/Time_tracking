@@ -1,11 +1,13 @@
-package org.itstep.timeTracking.conf;
+package org.itstep.timeTracking.security.conf;
 
+import org.itstep.timeTracking.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -37,13 +39,18 @@ public class SecurityConfiguration {
 
     }
 
-    @Bean
-    UserDetailsManager users(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
-    }
+//    @Bean
+//    UserDetailsManager users(DataSource dataSource) {
+//        return new JdbcUserDetailsManager(dataSource);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
         return NoOpPasswordEncoder.getInstance();
     }
+
+
+
 }
+
