@@ -26,8 +26,8 @@ public class CustomRole implements GrantedAuthority {
     private String authority;
     @ManyToMany
     @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name="users_id"),
-            inverseJoinColumns = @JoinColumn(name = "roles_id")
+            joinColumns = @JoinColumn(name="roles_id"),
+            inverseJoinColumns = @JoinColumn(name = "users_id")
     )
     private Set<CustomUser> users;
 

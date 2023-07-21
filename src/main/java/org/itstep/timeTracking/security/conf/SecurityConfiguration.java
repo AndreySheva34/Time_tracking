@@ -35,11 +35,6 @@ public class SecurityConfiguration {
 
     }
 
-//    @Bean
-//    UserDetailsManager users(DataSource dataSource) {
-//        return new JdbcUserDetailsManager(dataSource);
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();

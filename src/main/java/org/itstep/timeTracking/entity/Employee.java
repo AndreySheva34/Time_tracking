@@ -20,14 +20,12 @@ public class Employee {
     @Column(name = "card_number")
     private Integer cardNumber;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private CustomUser user;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Department department;
 
-//    @ManyToMany(mappedBy = "user")
-//    private User user;
 
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;

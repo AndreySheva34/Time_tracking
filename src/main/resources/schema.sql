@@ -26,11 +26,11 @@ create table roles (
 create table users_roles (
             users_id int not null,
             roles_id int not null,
+            primary key (users_id,roles_id),
             constraint foreign key(users_id) references users(id),
-            constraint foreign key(roles_id) references roles(id),
-            primary key (users_id,roles_id)
+            constraint foreign key(roles_id) references roles(id)
 );
-
+# ALTER TABLE users_roles add constraint foreign key(roles_id) references roles(id);
 CREATE TABLE employee(
             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
             firstname VARCHAR(255) NOT NULL,

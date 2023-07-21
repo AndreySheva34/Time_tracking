@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -30,7 +31,7 @@ public class CustomUser implements UserDetails {
     boolean enabled = true;
 
     @ManyToMany(mappedBy = "users")
-    private Set<CustomRole> authorities;
+    private Set<CustomRole> authorities = new HashSet<>();
 
     public CustomUser(String username, String password) {
         this.username = username;
