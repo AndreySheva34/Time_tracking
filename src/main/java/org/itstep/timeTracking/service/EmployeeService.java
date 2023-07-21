@@ -1,13 +1,12 @@
 package org.itstep.timeTracking.service;
 
-import lombok.NoArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
 import org.itstep.timeTracking.command.EmployeeCommand;
 import org.itstep.timeTracking.entity.Department;
 import org.itstep.timeTracking.entity.Employee;
 import org.itstep.timeTracking.repository.DepartmentRepository;
 import org.itstep.timeTracking.repository.EmployeeRepository;
-import org.itstep.timeTracking.security.entity.CustomRole;
 import org.itstep.timeTracking.security.entity.CustomUser;
 import org.itstep.timeTracking.security.repository.CustomRoleRepository;
 import org.itstep.timeTracking.security.repository.CustomUserRepository;

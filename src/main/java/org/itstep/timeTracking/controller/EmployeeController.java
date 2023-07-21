@@ -2,7 +2,6 @@ package org.itstep.timeTracking.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.itstep.timeTracking.command.EmployeeCommand;
-import org.itstep.timeTracking.entity.Department;
 import org.itstep.timeTracking.entity.Employee;
 import org.itstep.timeTracking.repository.DepartmentRepository;
 import org.itstep.timeTracking.repository.EmployeeRepository;
