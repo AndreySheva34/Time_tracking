@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
@@ -28,31 +28,42 @@ public class EmployeeController {
     String index(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
         model.addAttribute("departments", departmentRepository.findAll());
-        return "employee";
+        return "employees";
     }
 
     @PostMapping
     String create(@Validated EmployeeCommand employeeCommand, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "employee";
+            return "employees";
         }
         employeeService.save(employeeCommand);
-//        Optional<Department> optionalDepartment = departmentRepository.findById(employeeCommand.departmentId());
-//        optionalDepartment.ifPresent(department -> {
-//            Employee employee = Employee.fromEmployee(employeeCommand);
-//            employee.setDepartment(department);
-//            employeeRepository.save(employee);
-//        });
-        return "redirect:/employee";
-
+        return "redirect:/employees";
     }
 
     @GetMapping("/{id}")
+    String getEmployee(@PathVariable Integer id, Model model) {
+        model.addAttribute("departments", departmentRepository.findAll());
+
+        Optional<Employee> optionalEmployee= employeeRepository.findById(id);
+        optionalEmployee.ifPresent(employee -> {
+            model.addAttribute("employee", optionalEmployee.get());
+        });
+        return "/employee";
+    }
+
+    @PostMapping("/{id}")
+    String update(@PathVariable Integer id, EmployeeCommand employeeCommand){
+        employeeService.update(id, employeeCommand);
+        return "redirect:/employees";
+    }
+
+
+    @GetMapping("/delete/{id}")
     String delete(@PathVariable Integer id){
         Optional<Employee> optionalEmployee= employeeRepository.findById(id);
         optionalEmployee.ifPresent(employee -> {
             employeeRepository.deleteById(id);
         });
-        return "redirect:/employee";
+        return "redirect:/employees";
     }
 }

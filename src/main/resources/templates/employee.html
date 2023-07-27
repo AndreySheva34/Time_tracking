@@ -3,50 +3,29 @@
 <head th:replace="~{parts/header :: html_header}"></head>
 <body>
 <nav th:insert="~{parts/navbar :: navbar}"></nav>
-<h1>Emploee</h1>
+<h1>Employee</h1>
 
 <form method="post" >
     <div class="mb-3">
-      <input type="text" name="firstName" class="form-control" placeholder="First name" aria-label="First name" required>
+        <input type="text" name="firstName" class="form-control" th:value="${employee.firstName}" aria-label="First name" required>
     </div>
     <div class="mb-3">
-      <input type="text" name="lastName" class="form-control" placeholder="Last name" aria-label="Last name" required>
+        <input type="text" name="lastName" class="form-control" th:value="${employee.lastName}" aria-label="Last name"  required>
     </div>
     <div class="mb-3">
-        <input type="text" name="login" class="form-control" placeholder="Login" aria-label="Login">
+        <input type="text" name="login" class="form-control" th:value="${employee.getUser().username}" placeholder="Login" aria-label="Login" disabled>
     </div>
-    <div class="mb-3">
-        <input type="text" name="password" class="form-control" placeholder="Password" aria-label="Password">
-    </div>
+<!--    <div class="mb-3">-->
+<!--        <input type="text" name="password" class="form-control" placeholder="Password" aria-label="Password">-->
+<!--    </div>-->
     <select class="form-select" aria-label="Default select example" name ="departmentId">
-<!--        <option value=>Main department</option>-->
-        <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
+        <!--        <option value=>Main department</option>-->
+        <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}" th:selected="${department==employee.getDepartment()}">
         </option>
     </select>
     <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Save</button>
 </form>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">id</th>
-    <th scope="col">First name</th>
-    <th scope="col">Last name</th>
-      <th scope="col">Department</th>
-    <th scope="col">Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="employee: ${employees}">
-    <th scope="row" th:text="${employee.id}"></th>
-    <td th:text="${employee.firstName}"></td>
-    <td th:text="${employee.lastName}"></td>
-      <td th:text="${employee.department.title}"></td>
-    <td>Edit |<a th:href="@{employee/{id}(id=${employee.id})}">Delete</a></td>
-  </tr>
-  </tbody>
-</table>
 
 </body>
 </html>

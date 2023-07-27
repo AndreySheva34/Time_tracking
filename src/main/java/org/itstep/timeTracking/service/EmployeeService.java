@@ -38,4 +38,17 @@ public class EmployeeService {
 
         return employeeRepository.save(employee);
     }
+
+    public void update(Integer id, EmployeeCommand employeeCommand) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        optionalEmployee.ifPresent(employee -> {
+            employee.setFirstName(employeeCommand.firstName());
+            employee.setLastName(employeeCommand.lastName());
+
+            Optional<Department> optionalDepartment = departmentRepository.findById(employeeCommand.departmentId());
+            optionalDepartment.ifPresent(employee::setDepartment);
+
+            employeeRepository.save(employee);
+        });
+    }
 }
