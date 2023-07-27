@@ -45,9 +45,7 @@ public class EmployeeController {
         model.addAttribute("departments", departmentRepository.findAll());
 
         Optional<Employee> optionalEmployee= employeeRepository.findById(id);
-        optionalEmployee.ifPresent(employee -> {
-            model.addAttribute("employee", optionalEmployee.get());
-        });
+        optionalEmployee.ifPresent(employee -> model.addAttribute("employee", optionalEmployee.get()));
         return "/employee";
     }
 
@@ -61,9 +59,7 @@ public class EmployeeController {
     @GetMapping("/delete/{id}")
     String delete(@PathVariable Integer id){
         Optional<Employee> optionalEmployee= employeeRepository.findById(id);
-        optionalEmployee.ifPresent(employee -> {
-            employeeRepository.deleteById(id);
-        });
+        optionalEmployee.ifPresent(employee -> employeeRepository.deleteById(id));
         return "redirect:/employees";
     }
 }
