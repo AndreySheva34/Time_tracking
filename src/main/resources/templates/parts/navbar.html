@@ -11,7 +11,7 @@
         </li>
       </ul>
 
-      <p th:text="${#authentication.name}" </p>
+      <p th:text="${#authentication.name}"> </p>
       <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
         <button type="submit" class="btn btn-primary">Sign Out</button>
       </form>
