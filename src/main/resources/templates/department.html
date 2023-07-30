@@ -4,20 +4,20 @@
 <body>
 <nav th:insert="~{parts/navbar :: navbar}"></nav>
 <h1>Department</h1>
-<form method="post" >
-  <div class="mb-3">
-    <input type="text" name="title" class="form-control" placeholder="Title" aria-label="First name" required>
-  </div>
-  <select class="form-select" aria-label="Default select example" name = "parentId">
-    <option value=>Main department</option>
-    <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
+<!--<form method="post" >-->
+<!--  <div class="mb-3">-->
+<!--    <input type="text" name="title" class="form-control" placeholder="Title" aria-label="First name" required>-->
+<!--  </div>-->
+<!--  <select class="form-select" aria-label="Default select example" name = "parentId">-->
+<!--    <option value=>Main department</option>-->
+<!--    <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">-->
 
-    </option>
-  </select>
-  <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-  <button type="submit" class="btn btn-primary md-5" >Submit</button>
-</form>
-
+<!--    </option>-->
+<!--  </select>-->
+<!--  <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">-->
+<!--  <button type="submit" class="btn btn-primary md-5" >Submit</button>-->
+<!--</form>-->
+<a class="btn btn-primary" th:href="@{department/create}" role="button">Create</a>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -30,13 +30,17 @@
   <tbody>
   <tr th:each="department: ${departments}">
     <td th:text="${department.id}"></td>
-    <td th:text="${department.parentId}"></td>
+    <td th:text="${department.parentId != null ? department.parentId.title : '' }"></td>
     <td th:text="${department.title}"></td>
-    <td>Edit | <a th:href="@{department/{id}(id=${department.id})}">Delete</a></td>
+    <td>
+      <a th:href="@{department/{id}(id=${department.id})}">Edit</a> |
+      <a th:href="@{department/delete/{id}(id=${department.id})}">Delete</a></td>
   </tr>
   </tbody>
 
 
 </table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head th:replace="~{parts/header :: html_header}"></head>
 <body>
 <nav th:insert="~{parts/navbar :: navbar}"></nav>
-<h1>Emploee</h1>
+<h1>Create Emploee</h1>
 
 <form method="post" >
     <div class="mb-3">
@@ -27,29 +27,6 @@
     <button type="submit" class="btn btn-primary">Create</button>
 </form>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">id</th>
-    <th scope="col">First name</th>
-    <th scope="col">Last name</th>
-      <th scope="col">Department</th>
-    <th scope="col">Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="employee: ${employees}">
-    <th scope="row" th:text="${employee.id}"></th>
-    <td th:text="${employee.firstName}"></td>
-    <td th:text="${employee.lastName}"></td>
-      <td th:text="${employee.department.title}"></td>
-    <td>
-        <a th:href="@{employees/{id}(id=${employee.id})}">Edit</a> |
-        <a th:href="@{employees/delete/{id}(id=${employee.id})}">Delete</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
 
 </body>
 </html>

@@ -18,26 +18,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/employees")
+@RequestMapping("/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
     private final EmployeeService employeeService;
+
     @GetMapping
     String index(Model model){
         model.addAttribute("employees", employeeRepository.findAll());
         model.addAttribute("departments", departmentRepository.findAll());
-        return "employees";
+        return "employee";
     }
 
-    @PostMapping
+    @GetMapping("/create")
+    String createEmployee( Model model) {
+        model.addAttribute("departments", departmentRepository.findAll());
+        return "createemployee";
+    }
+
+    @PostMapping("/create")
     String create(@Validated EmployeeCommand employeeCommand, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "employees";
+            return "employee";
         }
         employeeService.save(employeeCommand);
-        return "redirect:/employees";
+        return "redirect:/employee";
     }
 
     @GetMapping("/{id}")
@@ -46,13 +53,13 @@ public class EmployeeController {
 
         Optional<Employee> optionalEmployee= employeeRepository.findById(id);
         optionalEmployee.ifPresent(employee -> model.addAttribute("employee", optionalEmployee.get()));
-        return "/employee";
+        return "editemployee";
     }
 
     @PostMapping("/{id}")
     String update(@PathVariable Integer id, EmployeeCommand employeeCommand){
         employeeService.update(id, employeeCommand);
-        return "redirect:/employees";
+        return "redirect:/employee";
     }
 
 
@@ -60,6 +67,6 @@ public class EmployeeController {
     String delete(@PathVariable Integer id){
         Optional<Employee> optionalEmployee= employeeRepository.findById(id);
         optionalEmployee.ifPresent(employee -> employeeRepository.deleteById(id));
-        return "redirect:/employees";
+        return "redirect:/employee";
     }
 }

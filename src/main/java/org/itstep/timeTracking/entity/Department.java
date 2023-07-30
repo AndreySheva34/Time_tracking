@@ -31,7 +31,7 @@ public class Department {
     private List<Employee> employees = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "parentId")
+    @JoinColumn(name = "parent_Id")
     private Department parentId;
 
     public Department(String title, Department parentId) {

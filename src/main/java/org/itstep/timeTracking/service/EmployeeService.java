@@ -26,12 +26,16 @@ public class EmployeeService {
     private final DepartmentRepository departmentRepository;
     @Transactional
     public Employee save(EmployeeCommand employeeCommand) {
-        var user = new CustomUser(employeeCommand.login(),passwordEncoder.encode(employeeCommand.password()));
-        var userRole  =  customRoleRepository.findByAuthorityLike("%USER%");
-        user.addRole(userRole);
-        userRepository.save(user);
+
         Employee employee = new Employee(employeeCommand.firstName(), employeeCommand.lastName());
-        employee.setUser(user);
+
+        if(!employeeCommand.login().isBlank()){
+            var user = new CustomUser(employeeCommand.login(),passwordEncoder.encode(employeeCommand.password()));
+            var userRole  =  customRoleRepository.findByAuthorityLike("%USER%");
+            user.addRole(userRole);
+            userRepository.save(user);
+            employee.setUser(user);
+        }
 
         Optional<Department> optionalDepartment = departmentRepository.findById(employeeCommand.departmentId());
         optionalDepartment.ifPresent(employee::setDepartment);

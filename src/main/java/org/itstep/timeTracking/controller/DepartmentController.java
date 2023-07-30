@@ -2,6 +2,7 @@ package org.itstep.timeTracking.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.itstep.timeTracking.command.DepartmentCommand;
+import org.itstep.timeTracking.command.EmployeeCommand;
 import org.itstep.timeTracking.entity.Department;
 import org.itstep.timeTracking.entity.Employee;
 import org.itstep.timeTracking.repository.DepartmentRepository;
@@ -26,8 +27,14 @@ public class DepartmentController {
         return "department";
     }
 
-    @PostMapping
-    String create(DepartmentCommand departmentCommand) {
+    @GetMapping("/create")
+    String create(Model model) {
+        model.addAttribute("departments", departmentRepository.findAll());
+        return "createdepartment";
+    }
+
+    @PostMapping("/create")
+    String createDepartment(DepartmentCommand departmentCommand) {
         Department departmentParent = Department.fromDepartment(departmentCommand);
 
         if (departmentCommand.parentId() != null ){
@@ -40,6 +47,28 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}")
+    String getDepartment(@PathVariable Integer id, Model model) {
+        model.addAttribute("departments", departmentRepository.findAll());
+
+        Optional<Department> optionalDepartment= departmentRepository.findById(id);
+        optionalDepartment.ifPresent(department1 -> model.addAttribute("department", optionalDepartment.get()));
+        return "editdepartment";
+    }
+
+    @PostMapping("/{id}")
+    String update(@PathVariable Integer id, DepartmentCommand departmentCommand){
+        Optional<Department> optionalDepartment= departmentRepository.findById(id);
+        optionalDepartment.ifPresent(department -> {
+            department.setTitle(departmentCommand.title());
+            department.setParentId(departmentCommand.parentId());
+            departmentRepository.save(department);
+        });
+
+        return "redirect:/department";
+    }
+
+
+    @GetMapping("delete/{id}")
     String delete(@PathVariable Integer id){
         Optional<Department> optionalDepartment = departmentRepository.findById(id);
         optionalDepartment.ifPresent(depatrment -> {
