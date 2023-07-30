@@ -1,31 +1,47 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{parts/header :: html_header}"></head>
 <body>
 <nav th:insert="~{parts/navbar :: navbar}"></nav>
-<h1>Create Emploee</h1>
+<section style="padding-bottom: 40px; padding-top: 40px">
+    <div class="container-lg">
+        <h1><h1>Create Emploee</h1></h1>
+        <div class="row justify-content-md-center align-items-center" style="padding-bottom: 40px; padding-top: 40px">
+            <form method="post">
+                <div class="mb-3">
+                    <input type="text" name="firstName" class="form-control" placeholder="First name"
+                           aria-label="First name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="lastName" class="form-control" placeholder="Last name"
+                           aria-label="Last name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="login" class="form-control" placeholder="Login" aria-label="Login">
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="password" class="form-control" placeholder="Password"
+                           aria-label="Password">
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="cardNumber" class="form-control" placeholder="Card number"
+                           aria-label="Card number">
+                </div>
+                <select class="form-select" aria-label="Default select example" name="departmentId">
+                    <!--        <option value=>Main department</option>-->
+                    <option th:each="department: ${departments}" th:value="${department.id}"
+                            th:text="${department.title}">
+                    </option>
+                </select>
+                <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}" class="mb-3">
+                <div style="padding: 15px 0px">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<form method="post" >
-    <div class="mb-3">
-      <input type="text" name="firstName" class="form-control" placeholder="First name" aria-label="First name" required>
-    </div>
-    <div class="mb-3">
-      <input type="text" name="lastName" class="form-control" placeholder="Last name" aria-label="Last name" required>
-    </div>
-    <div class="mb-3">
-        <input type="text" name="login" class="form-control" placeholder="Login" aria-label="Login">
-    </div>
-    <div class="mb-3">
-        <input type="text" name="password" class="form-control" placeholder="Password" aria-label="Password">
-    </div>
-    <select class="form-select" aria-label="Default select example" name ="departmentId">
-<!--        <option value=>Main department</option>-->
-        <option th:each="department: ${departments}" th:value="${department.id}" th:text="${department.title}">
-        </option>
-    </select>
-    <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+</section>
 
 
 </body>

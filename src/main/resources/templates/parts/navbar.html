@@ -1,21 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/static">Home</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/employee">Employee</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/department">Department</a>
-        </li>
-      </ul>
+    <div class="container-lg">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/employee">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/department">Department</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/schedule">Schedule</a>
+                </li>
+            </ul>
 
-      <p th:text="${#authentication.name}"> </p>
-      <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-        <button type="submit" class="btn btn-primary">Sign Out</button>
-      </form>
+            <div class="navbar-text" style="padding:  5px 10px 5px 0px" th:text="${#authentication.name}"
+                 sec:authorize="isAuthenticated()"></div>
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+                <button type="submit" class="btn btn-primary">Sign Out</button>
+            </form>
 
+        </div>
     </div>
-  </div>
 </nav>
