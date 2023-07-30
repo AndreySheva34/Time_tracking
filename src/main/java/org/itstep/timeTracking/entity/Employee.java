@@ -11,7 +11,8 @@ import org.itstep.timeTracking.security.entity.CustomUser;
 @Table(name = "employee")
 @NoArgsConstructor
 public class Employee {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "firstname")
     private String firstName;
@@ -32,12 +33,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public void setDepartment(Department department){
+    public void setDepartment(Department department) {
         department.getEmployees().add(this);
         this.department = department;
     }
 
-    public static Employee fromEmployee(EmployeeCommand command){
+    public static Employee fromEmployee(EmployeeCommand command) {
         return new Employee(command.firstName(), command.lastName());
     }
 }

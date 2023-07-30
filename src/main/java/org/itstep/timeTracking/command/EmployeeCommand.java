@@ -9,6 +9,6 @@ public record EmployeeCommand(
         String lastName,
         String login,
         String password,
-        Integer card,
+        Integer cardNumber,
         Integer departmentId) {
 }

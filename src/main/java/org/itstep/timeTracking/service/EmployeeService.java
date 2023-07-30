@@ -24,23 +24,28 @@ public class EmployeeService {
     private final PasswordEncoder passwordEncoder;
     private final CustomRoleRepository customRoleRepository;
     private final DepartmentRepository departmentRepository;
+
     @Transactional
-    public Employee save(EmployeeCommand employeeCommand) {
+    public void save(EmployeeCommand employeeCommand) {
 
         Employee employee = new Employee(employeeCommand.firstName(), employeeCommand.lastName());
 
-        if(!employeeCommand.login().isBlank()){
-            var user = new CustomUser(employeeCommand.login(),passwordEncoder.encode(employeeCommand.password()));
-            var userRole  =  customRoleRepository.findByAuthorityLike("%USER%");
+        if (!employeeCommand.login().isBlank()) {
+            var user = new CustomUser(employeeCommand.login(), passwordEncoder.encode(employeeCommand.password()));
+            var userRole = customRoleRepository.findByAuthorityLike("%USER%");
             user.addRole(userRole);
             userRepository.save(user);
             employee.setUser(user);
         }
 
+        if (employeeCommand.cardNumber() != null) {
+            employee.setCardNumber(employeeCommand.cardNumber());
+        }
+
         Optional<Department> optionalDepartment = departmentRepository.findById(employeeCommand.departmentId());
         optionalDepartment.ifPresent(employee::setDepartment);
 
-        return employeeRepository.save(employee);
+        employeeRepository.save(employee);
     }
 
     public void update(Integer id, EmployeeCommand employeeCommand) {
@@ -51,6 +56,10 @@ public class EmployeeService {
 
             Optional<Department> optionalDepartment = departmentRepository.findById(employeeCommand.departmentId());
             optionalDepartment.ifPresent(employee::setDepartment);
+
+            if (employeeCommand.cardNumber() != null) {
+                employee.setCardNumber(employeeCommand.cardNumber());
+            }
 
             employeeRepository.save(employee);
         });
