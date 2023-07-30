@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header :: html_header}"></head>
+<body>
+<nav th:insert="~{parts/navbar :: navbar}"></nav>
+<section style="padding-bottom: 40px; padding-top: 40px">
+    <div class="container-lg">
+        <h1><h1>Create Shedule</h1></h1>
+        <div class="row justify-content-md-center align-items-center" style="padding-bottom: 40px; padding-top: 40px">
+            <form method="post">
+                <div class="mb-3">
+                    <input type="text" name="title" class="form-control" placeholder="Title"
+                           aria-label="Title" required>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="form-floating">
+                            <input type="time" name="startTime" id="startTime" class="form-control"
+                                   placeholder="Start time"
+                                   aria-label="Start time" required>
+                            <label for="startTime">Start time</label>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="form-floating">
+                            <input type="time" name="endTime" id="endTime" class="form-control" placeholder="End time"
+                                   aria-label="End time">
+                            <label for="endTime">End time</label>
+                        </div>
+                    </div>
+                </div>
+                <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}" class="mb-3">
+                <div style="padding: 15px 0px">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+
+</body>
+</html>

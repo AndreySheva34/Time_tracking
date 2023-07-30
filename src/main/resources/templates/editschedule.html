@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header :: html_header}"></head>
+<body>
+<nav th:insert="~{parts/navbar :: navbar}"></nav>
+<section style="padding-bottom: 40px; padding-top: 40px">
+    <div class="container-lg">
+        <h1>Edit Schedule</h1>
+        <div class="row justify-content-md-center align-items-center" style="padding-bottom: 40px; padding-top: 40px">
+            <form method="post">
+                <div class="mb-3">
+                    <input type="text" name="title" class="form-control" th:value="${schedule.title}"
+                           aria-label="Title" required>
+                </div>
+                <div class="mb-3">
+                    <input type="time" name="startTime" class="form-control" th:value="${schedule.startTime}"
+                           aria-label="Start time" required>
+                </div>
+                <div class="mb-3">
+                    <input type="time" name="endTime" class="form-control" th:value="${schedule.endTime}"
+                           aria-label="End time">
+                </div>
+
+                <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                <div style="padding: 15px 0">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
