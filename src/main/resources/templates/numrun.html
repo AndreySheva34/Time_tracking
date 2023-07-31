@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header :: html_header}"></head>
+<body>
+<nav th:insert="~{parts/navbar :: navbar}"></nav>
+<section style="padding-bottom: 40px; padding-top: 40px">
+  <div class="container-lg">
+    <h1>Num Run</h1>
+    <div class="row justify-content-md-center align-items-center" style="padding-bottom: 40px; padding-top: 40px">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Start date</th>
+          <th scope="col">End date</th>
+          <th scope="col">Cycle</th>
+          <th scope="col">Units</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="numrun: ${numruns}">
+          <td th:text="${numrun.id}"></td>
+          <td th:text="${numrun.title}"></td>
+          <td th:text="${numrun.startDate}"></td>
+          <td th:text="${numrun.endDate}"></td>
+          <td th:text="${numrun.cycle}"></td>
+          <td th:text="${numrun.units}"></td>
+          <td>
+            <a th:href="@{numrun/{id}(id=${numrun.id})}">Edit</a> |
+            <a th:href="@{numrun/delete/{id}(id=${numrun.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-primary" th:href="@{numrun/create}" role="button">Create</a>
+    </div>
+  </div>
+</section>
+
+
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

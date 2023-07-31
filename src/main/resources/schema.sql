@@ -57,12 +57,12 @@ CREATE TABLE departments
 
 CREATE TABLE `num_run_deteil`
 (
-    `num_run_id`  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `start_time`  TIME         NOT NULL,
-    `end_time`    TIME         NOT NULL,
-    `sdays`       INT          NOT NULL,
-    `edays`       INT          NOT NULL,
-    `schclass_id` INT          NOT NULL
+    num_run_id  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    start_time  TIME         NOT NULL,
+    end_time    TIME         NOT NULL,
+    sdays       INT          NOT NULL,
+    edays       INT          NOT NULL,
+    schclass_id INT          NOT NULL
 );
 CREATE TABLE `check_in_out`
 (
@@ -71,18 +71,17 @@ CREATE TABLE `check_in_out`
     `checktime` DATETIME     NOT NULL,
     `chektype`  INT          NOT NULL
 );
+
 CREATE TABLE `num_run`
 (
-    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `title`      VARCHAR(255) NOT NULL,
-    `start_date` DATE         NOT NULL,
-    `end_date`   DATE         NOT NULL,
-    `cyle`       INT          NOT NULL,
-    `units`      INT          NOT NULL
+    id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title      VARCHAR(255) NOT NULL UNIQUE,
+    start_date DATE         NOT NULL,
+    end_date   DATE         NOT NULL,
+    cycle      INT          NOT NULL,
+    units      INT          NOT NULL
 );
-ALTER TABLE
-    `num_run`
-    ADD UNIQUE `num_run_title_unique` (`title`);
+
 CREATE TABLE `user_temp_shedule`
 (
     `id`              INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

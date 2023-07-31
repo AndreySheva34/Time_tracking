@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header :: html_header}"></head>
+<body>
+<nav th:insert="~{parts/navbar :: navbar}"></nav>
+
+<section style="padding-bottom: 40px; padding-top: 40px">
+    <div class="container-lg">
+        <h1>Create Num Run</h1>
+        <div class="row justify-content-md-center align-items-center" style="padding-bottom: 40px; padding-top: 40px">
+            <form method="post">
+                <div class="mb-3">
+                    <input type="text" name="title" class="form-control" placeholder="Title" aria-label="First name"
+                           required>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="form-floating">
+                            <input type="date" name="startDate" class="form-control" id="startDate"
+                                   placeholder="Start Date"
+                                   aria-label="Start Date"
+                                   required>
+                            <label for="startDate">Start Date</label>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="form-floating">
+                            <input type="date" name="endDate" class="form-control" id="endDate" placeholder="End Date"
+                                   aria-label="End Date"
+                                   required>
+                            <label for="endDate">End Date</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="form-floating">
+                            <input type="number" name="cycle" id="cycle" class="form-control" placeholder="Cycle"
+                                   aria-label="Cycle"
+                                   required>
+                            <label for="cycle">Cycle</label>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <div class="form-floating">
+                            <input type="number" name="units" id="units" class="form-control" placeholder="Units"
+                                   aria-label="Units"
+                                   required>
+                            <label for="units">Units</label>
+                        </div>
+                    </div>
+                </div>
+
+                <input th:name="${_csrf.parameterName}" type="hidden" th:value="${_csrf.token}">
+                <div style="padding: 15px 0px">
+                    <button type="submit" class="btn btn-primary md-5">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>
