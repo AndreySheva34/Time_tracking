@@ -54,27 +54,29 @@ CREATE TABLE departments
     constraint fk_recursive foreign key (parent_id) references departments (id)
 );
 
+CREATE TABLE schedule
+(
+    `id`         INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `title`      VARCHAR(50) NOT NULL UNIQUE,
+    `start_time` TIME        NOT NULL,
+    `end_time`   TIME        NOT NULL
+);
 
 CREATE TABLE `num_run_deteil`
 (
-    num_run_id  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    start_time  TIME         NOT NULL,
-    end_time    TIME         NOT NULL,
-    sdays       INT          NOT NULL,
-    edays       INT          NOT NULL,
-    schclass_id INT          NOT NULL
+    id          INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    num_run_id  INT  NOT NULL,
+    start_time  TIME NOT NULL,
+    end_time    TIME NOT NULL,
+    sdays       INT  NOT NULL,
+    edays       INT  NOT NULL,
+    schedule_id INT  NOT NULL
 );
-CREATE TABLE `check_in_out`
-(
-    `id`        INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `user_id`   INT          NOT NULL,
-    `checktime` DATETIME     NOT NULL,
-    `chektype`  INT          NOT NULL
-);
+
 
 CREATE TABLE `num_run`
 (
-    id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id         INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title      VARCHAR(255) NOT NULL UNIQUE,
     start_date DATE         NOT NULL,
     end_date   DATE         NOT NULL,
@@ -82,38 +84,45 @@ CREATE TABLE `num_run`
     units      INT          NOT NULL
 );
 
-CREATE TABLE `user_temp_shedule`
+CREATE TABLE `check_in_out`
 (
-    `id`              INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `user_id`         INT          NOT NULL,
-    `start_date`      DATETIME     NOT NULL,
-    `end_date`        DATETIME     NOT NULL,
-    `sedule_class_id` INT          NULL,
-    `type`            INT          NOT NULL
+    `id`        INT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id`   INT      NOT NULL,
+    `checktime` DATETIME NOT NULL,
+    `chektype`  INT      NOT NULL
 );
 
-CREATE TABLE schedule
+CREATE TABLE `user_temp_shedule`
 (
-    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `title`      VARCHAR(50)  NOT NULL UNIQUE,
-    `start_time` TIME         NOT NULL,
-    `end_time`   TIME         NOT NULL
+    `id`              INT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id`         INT      NOT NULL,
+    `start_date`      DATETIME NOT NULL,
+    `end_date`        DATETIME NOT NULL,
+    `sedule_class_id` INT      NULL,
+    `type`            INT      NOT NULL
 );
+
+
 
 CREATE TABLE `num_of_run`
 (
-    `id`            INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `user_id`       INT          NOT NULL,
-    `start_date`    DATE         NOT NULL,
-    `end_date`      DATE         NOT NULL,
-    `num_of_run_id` INT          NOT NULL
+    `id`            INT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `user_id`       INT  NOT NULL,
+    `start_date`    DATE NOT NULL,
+    `end_date`      DATE NOT NULL,
+    `num_of_run_id` INT  NOT NULL
 );
 ALTER TABLE
     `num_of_run`
     ADD CONSTRAINT `num_of_run_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES employee (`id`);
+
 ALTER TABLE
     `num_run_deteil`
     ADD CONSTRAINT `num_run_deteil_num_run_id_foreign` FOREIGN KEY (`num_run_id`) REFERENCES `num_run` (`id`);
+ALTER TABLE
+    `num_run_deteil`
+    ADD CONSTRAINT `num_run_deteil_schedule_id_foreign` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`id`);
+
 ALTER TABLE
     `check_in_out`
     ADD CONSTRAINT `check_in_out_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES employee (`id`);
@@ -123,9 +132,7 @@ ALTER TABLE
 ALTER TABLE
     `user_temp_shedule`
     ADD CONSTRAINT `user_temp_shedule_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES employee (`id`);
-ALTER TABLE
-    `num_run_deteil`
-    ADD CONSTRAINT `num_run_deteil_schclass_id_foreign` FOREIGN KEY (`schclass_id`) REFERENCES schedule (`id`);
+
 ALTER TABLE
     employee
     ADD CONSTRAINT `user_department_id_foreign` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`);
